@@ -1,5 +1,8 @@
 import { Controller, Post, Body, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { FirebaseUserClass } from 'src/firebase/classes/firebase-user.class';
+import { FirebaseUser } from 'src/firebase/user.decorator';
+import { ReportClass } from './classes/report.class';
 import { CreateReportDTO } from './dto/create-report.dto';
 import { ReportsService } from './reports.service';
 
@@ -18,5 +21,9 @@ export class ReportsController {
 
 
     @Get('listAll')
-    async listAllByUser() {}
+    async listAllByUser(
+        @FirebaseUser() user: FirebaseUserClass
+    ) : Promise<ReportClass[]> {
+        return await this.reportsService.listAllByUser(user.uid);
+    }
 }
