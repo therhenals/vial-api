@@ -10,13 +10,13 @@ export class SignalTypesController {
         private signalTypesService: SignalTypesService
     ) { }
 
-    @Post('create')
-  async  create(@Body() signalType: CreateSignalTypeDTO) : Promise<void> {
-     await   this.signalTypesService.create(signalType);
-    }
+  //   @Post('create')
+  // async  create(@Body() signalType: CreateSignalTypeDTO) : Promise<void> {
+  //    await   this.signalTypesService.create(signalType);
+  //   }
 
-    @Get('list')
-    async listAll(): Promise<SignalTypeClass[]> {
-      return await this.signalTypesService.listAll();
-    }
+  //   @Get('list')
+  //   async listAll(): Promise<SignalTypeClass[]> {
+  //     return await this.signalTypesService.listAll();
+  //   }
 }

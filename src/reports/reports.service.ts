@@ -5,11 +5,11 @@ import { CreateReportDTO } from './dto/create-report.dto';
 @Injectable()
 export class ReportsService {
 
-    async create(reportDto: CreateReportDTO): Promise<void> {
-        // Implement typeorm
-    }
+    // async create(reportDto: CreateReportDTO): Promise<void> {
+    //     // Implement typeorm
+    // }
 
-    async listAllByUser(userId: string) : Promise<ReportClass[]> {
-        // Implement typeorm
-    }
+    // async listAllByUser(userId: string) : Promise<ReportClass[]> {
+    //     // Implement typeorm
+    // }
 }
