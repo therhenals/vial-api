@@ -14,7 +14,7 @@ import { SignalTypesService } from './signal-types.service';
 
 @Controller('signal-types')
 export class SignalTypesController {
-  constructor(private signalTypesService: SignalTypesService) {}
+  constructor(private signalTypesService: SignalTypesService) { }
 
   @Post('create')
   create(@Body() signalType: CreateSignalTypeDTO) {
@@ -24,11 +24,6 @@ export class SignalTypesController {
   @Get('list')
   listAll(): Promise<SignalTypeClass[]> {
     return this.signalTypesService.listAll();
-  }
-
-  @Get('search/:id')
-  getOne(@Param('id', ParseIntPipe) id: number) {
-    return this.signalTypesService.getById(id);
   }
 
   @Put('update/:id')

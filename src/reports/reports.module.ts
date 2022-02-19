@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from 'src/users/entities/users.entity';
-import { Signal } from 'src/signal-types/entitie/signal-types.entity';
+import { Signal } from 'src/signal-types/entities/signal-types.entity';
 import { Conservations } from './entities/conservations.entity';
 import { Reports } from './entities/reports.entity';
 import { Visibilities } from './entities/visibilities.entity';

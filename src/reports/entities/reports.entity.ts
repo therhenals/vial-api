@@ -1,5 +1,5 @@
 import { Users } from 'src/users/entities/users.entity';
-import { Signal } from 'src/signal-types/entitie/signal-types.entity';
+import { Signal } from 'src/signal-types/entities/signal-types.entity';
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Conservations } from './conservations.entity';
 import { Visibilities } from './visibilities.entity';
