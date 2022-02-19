@@ -1,4 +1,5 @@
-import { Column,Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column,Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Reports } from "./reports.entity";
 
 
 @Entity('Conservations')
@@ -20,5 +21,7 @@ export class  Conservations{
     @Column({name: 'bentPost',type: 'bool',nullable:false})
     bentPost:boolean;
     
+    @OneToOne(() => Reports, report => report.conservations, {cascade:true})
+    con:Reports ;
    
 }

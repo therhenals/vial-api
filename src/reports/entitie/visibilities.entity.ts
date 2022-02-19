@@ -1,4 +1,5 @@
-import { Column, Entity,PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity,OneToOne,PrimaryGeneratedColumn } from "typeorm";
+import { Reports } from "./reports.entity";
 
 
 @Entity('Visibilities')
@@ -20,5 +21,8 @@ export class  Visibilities{
     @Column({name: 'energyPost',type: 'bool',nullable:false})
     energyPost:boolean;
     
+
+    @OneToOne(() => Reports,report => report.visibilities, {cascade:true})
+    vis:Reports ;
     
 }

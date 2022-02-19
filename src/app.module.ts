@@ -15,7 +15,7 @@ import { ConfigModule } from '@nestjs/config';
     //Nest modules
     ConfigModule.forRoot({
       isGlobal: true,
-    }),    
+    }),
     // App modules
     AuthModule,
     // FirebaseModule,
@@ -30,12 +30,12 @@ import { ConfigModule } from '@nestjs/config';
       username: 'root',
       password: '',
       database: 'dbnest',
-      entities: ["dist/**/*.entity{.ts,.js}"],
-      autoLoadEntities:true,
+      entities: ['dist/**/*.entity{.ts,.js}'],
+      autoLoadEntities: true,
       synchronize: false,
     }),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
