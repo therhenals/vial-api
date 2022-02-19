@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReportClass } from './classes/report.class';
 import { CreateReportDTO } from './dto/create-report.dto';
-import { Conservations } from './entitie/conservations.entity';
-import { Reports } from './entitie/reports.entity';
-import { Visibilities } from './entitie/visibilities.entity';
+import { Conservations } from './entities/conservations.entity';
+import { Reports } from './entities/reports.entity';
+import { Visibilities } from './entities/visibilities.entity';
 
 @Injectable()
 export class ReportsService {

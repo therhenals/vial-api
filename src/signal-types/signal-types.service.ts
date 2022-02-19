@@ -12,31 +12,19 @@ export class SignalTypesService {
     private readonly signalRepository: Repository<Signal>,
   ) { }
 
-  async create(senial: CreateSignalTypeDTO) {
-    const dto = this.signalRepository.create(senial as any);
-    return await this.signalRepository.save(dto);
+  async create(signal: CreateSignalTypeDTO): Promise<void> {
+    const data = this.signalRepository.create(signal);
+    await this.signalRepository.save(data);
   }
 
-  async listAll(): Promise<any> {
-    const data = await this.signalRepository.find();
-    return { message: 'data', data };
+  async listAll(): Promise<SignalTypeClass[]> {
+    const signalTypes = await this.signalRepository.find();
+    return signalTypes;
   }
 
-  async editOne(id: number, dto: CreateSignalTypeDTO) {
-    const senial = await this.signalRepository.findOne(id);
-
-    if (!senial) throw new NotFoundException('Not found');
-
-    const editedPost = Object.assign(senial, dto);
-    return await this.signalRepository.save(editedPost);
-  }
-
-  async deleteOne(id: number) {
-    const senial = await this.signalRepository.findOne(id);
-    if (!senial) throw new NotFoundException('Id not found');
-
+  async delete(id: number): Promise<void> {
+    const signalType = await this.signalRepository.findOne(id);
+    if (!signalType) throw new NotFoundException('SignalType not found');
     await this.signalRepository.delete(id);
-
-    return { message: 'Success Fulll porcess of elimination' };
   }
 }
