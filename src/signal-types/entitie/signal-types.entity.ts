@@ -8,7 +8,7 @@ export class Signal {
     id: number;
 
     @Column({ name:'Name' ,type: 'varchar', length: 80})
-    Name: string;
+    name: string;
    
 
     @OneToOne(() => Reports,report => report.signalTypes, {cascade:true})

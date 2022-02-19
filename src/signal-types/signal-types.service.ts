@@ -11,21 +11,39 @@ export class SignalTypesService {
     @InjectRepository(Signal)
     private readonly signalRepository: Repository<Signal>,
   ) {}
-   
-  async create(signal: any){
-       const senial = this.signalRepository.create(signal);
-       return await this.signalRepository.save(senial);
+
+  async create(senial: CreateSignalTypeDTO) {
+    const dto = this.signalRepository.create(senial as any);
+    return await this.signalRepository.save(dto);
+    console.log(dto);
   }
 
-    getById(id: number){
-        const res =  this.signalRepository.findOne(id);
-        if(!res) throw new NotFoundException('The Sygnal no exist');
-        return res;
+  async getById(id: number) {
+    const res = await this.signalRepository.findOne(id);
+    if (!res) throw new NotFoundException('The Sygnal no exist');
+    return res;
   }
 
   async listAll(): Promise<any> {
-   const data = await this.signalRepository.find();
-    return  {message:'data',data} 
-    
+    const data = await this.signalRepository.find();
+    return { message: 'data', data };
+  }
+
+  async editOne(id: number, dto: CreateSignalTypeDTO) {
+    const senial = await this.signalRepository.findOne(id);
+
+    if (!senial) throw new NotFoundException('Not found');
+
+    const editedPost = Object.assign(senial, dto);
+    return await this.signalRepository.save(editedPost);
+  }
+
+  async deleteOne(id: number) {
+    const senial = await this.signalRepository.findOne(id);
+    if (!senial) throw new NotFoundException('Id not found');
+
+    await this.signalRepository.delete(id);
+
+    return { message: 'Success Fulll porcess of elimination' };
   }
 }

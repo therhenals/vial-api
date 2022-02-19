@@ -1,27 +1,43 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { SignalTypeClass } from './classes/signal-type.class';
 import { CreateSignalTypeDTO } from './dto/create-signal-type.dto';
 import { SignalTypesService } from './signal-types.service';
 
 @Controller('signal-types')
 export class SignalTypesController {
+  constructor(private signalTypesService: SignalTypesService) {}
 
-    constructor(
-        private signalTypesService: SignalTypesService
-    ) { }
+  @Post('create')
+  create(@Body() signalType: CreateSignalTypeDTO) {
+    return this.signalTypesService.create(signalType);
+  }
 
-    @Post('create')
-   async  create(@Body() signalType: CreateSignalTypeDTO) : Promise<void> {
-     await   this.signalTypesService.create(signalType);
-    }
+  @Get('list')
+  listAll(): Promise<SignalTypeClass[]> {
+    return this.signalTypesService.listAll();
+  }
 
-    @Get('list')
-    async listAll(): Promise<SignalTypeClass[]> {
-      return await this.signalTypesService.listAll();
-    }
+  @Get('search/:id')
+  getOne(@Param('id', ParseIntPipe) id: number) {
+    return this.signalTypesService.getById(id);
+  }
 
-    @Get(':id')
-    async getOne(@Param('id',ParseIntPipe) id:number){
-      return await this.signalTypesService.getById(id);
-    }
+  @Put('update/:id')
+  editOne(@Param('id') id: number, @Body() dto: CreateSignalTypeDTO) {
+    return this.signalTypesService.editOne(id, dto);
+  }
+
+  @Delete('delete/:id')
+  deleteOne(@Param('id') id: number) {
+    return this.signalTypesService.deleteOne(id);
+  }
 }
