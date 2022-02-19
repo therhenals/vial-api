@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Users } from 'src/auth/entitie/user.entity';
+import { Users } from 'src/users/entities/users.entity';
 import { Signal } from 'src/signal-types/entitie/signal-types.entity';
-import { Conservations } from './entitie/conservations.entity';
-import { Reports } from './entitie/reports.entity';
-import { Visibilities } from './entitie/visibilities.entity';
+import { Conservations } from './entities/conservations.entity';
+import { Reports } from './entities/reports.entity';
+import { Visibilities } from './entities/visibilities.entity';
 import { ReportsController } from './reports.controller';
 import { ReportsService } from './reports.service';
 
@@ -21,4 +21,4 @@ import { ReportsService } from './reports.service';
   controllers: [ReportsController],
   providers: [ReportsService],
 })
-export class ReportsModule {}
+export class ReportsModule { }
