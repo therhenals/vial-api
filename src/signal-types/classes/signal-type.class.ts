@@ -1,4 +1,4 @@
 export class SignalTypeClass {
-    id: string;
+    id: number;
     name: string;
 }

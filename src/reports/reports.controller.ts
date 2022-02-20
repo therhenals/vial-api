@@ -14,16 +14,19 @@ export class ReportsController {
     ) { }
 
 
-    // @Post('create')
-    // async create(@Body() reportDto: CreateReportDTO): Promise<void> {
-    //     await this.reportsService.create(reportDto);
-    // }
+    @Post('create')
+    async create(
+        @FirebaseUser() firebaseUser: FirebaseUserClass,
+        @Body() reportDto: CreateReportDTO,
+    ): Promise<void> {
+        await this.reportsService.create(firebaseUser.uid, reportDto);
+    }
 
 
-    // @Get('listAll')
-    // async listAllByUser(
-    //     @FirebaseUser() user: FirebaseUserClass
-    // ) : Promise<ReportClass[]> {
-    //     return await this.reportsService.listAllByUser(user.uid);
-    // }
+    @Get('listAll')
+    async listAllByUser(
+        @FirebaseUser() user: FirebaseUserClass
+    ) /* : Promise<ReportClass[]> */ {
+        return await this.reportsService.listAllByUser(user.uid);
+    }
 }

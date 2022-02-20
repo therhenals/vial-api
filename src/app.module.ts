@@ -16,26 +16,25 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    // App modules
-    AuthModule,
-    // FirebaseModule,
-    UsersModule,
-    ReportsModule,
-    SignalTypesModule,
-    //TypeOrm
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '',
-      database: 'dbnest',
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
       entities: ['dist/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: false,
     }),
+    // App modules
+    AuthModule,
+    FirebaseModule,
+    UsersModule,
+    ReportsModule,
+    SignalTypesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
