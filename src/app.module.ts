@@ -32,7 +32,7 @@ import { ConfigModule } from '@nestjs/config';
       database: 'dbnest',
       entities: ['dist/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
     }),
   ],
   controllers: [AppController],
