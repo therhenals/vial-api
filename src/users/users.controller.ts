@@ -6,10 +6,10 @@ import { UsersService } from './users.service';
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private signalTypesService: UsersService) {}
+  constructor(private usersService: UsersService) {}
 
   @Post('create')
   async create(@Body() user: CreateUserDTO): Promise<void> {
-    return await this.signalTypesService.create(user);
+    return await this.usersService.create(user);
   }
 }
