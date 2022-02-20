@@ -23,10 +23,10 @@ export class ReportsController {
     }
 
 
-    // @Get('listAll')
-    // async listAllByUser(
-    //     @FirebaseUser() user: FirebaseUserClass
-    // ) : Promise<ReportClass[]> {
-    //     return await this.reportsService.listAllByUser(user.uid);
-    // }
+    @Get('listAll')
+    async listAllByUser(
+        @FirebaseUser() user: FirebaseUserClass
+    ) /* : Promise<ReportClass[]> */ {
+        return await this.reportsService.listAllByUser(user.uid);
+    }
 }

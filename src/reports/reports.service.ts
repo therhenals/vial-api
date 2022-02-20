@@ -30,7 +30,6 @@ export class ReportsService {
     const user = await this.usersRepository.findOne(uid);
     const signalType = await this.signalRepository.findOne(reportDto.typeId);
 
-
     let conservation = {
       clean: reportDto.clean,
       scratched: reportDto.scratched,
@@ -54,8 +53,8 @@ export class ReportsService {
     let report = {
       lat: reportDto.lat,
       lng: reportDto.lng,
-      urlPhoto: '',
       users: user,
+      urlPhoto: '',
       signalTypes: signalType,
     }
 
@@ -72,9 +71,17 @@ export class ReportsService {
       reportDto.photo,
     );
 
+    report.urlPhoto = `photos/${saved.id}.jpg`;
+
+    await this.reportsRepository.update(saved.id, report);
   }
 
-  // async listAllByUser(userId: string) : Promise<ReportClass[]> {
-  //     // Implement typeorm
-  // }
+  async listAllByUser(userId: string) {
+    const user = await this.usersRepository.findOne(userId);
+
+    return await this.reportsRepository.find({
+      users: user,
+    });
+    // Implement typeorm
+  }
 }
