@@ -3,9 +3,7 @@ import {
   Controller,
   Get,
   Param,
-  ParseIntPipe,
   Post,
-  Put,
   Delete,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
@@ -29,7 +27,7 @@ export class SignalTypesController {
   }
 
   @Delete('delete/:id')
-  deleteOne(@Param('id') id: number) {
+  delete(@Param('id') id: number) {
     return this.signalTypesService.delete(id);
   }
 }
