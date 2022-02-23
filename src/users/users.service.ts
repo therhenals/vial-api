@@ -2,25 +2,46 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDTO } from './dto/create-user.dto';
-import { Users } from './entities/users.entity';
+import { User } from './entities/user.entity';
+//Libraries
+import * as bcrypt from 'bcrypt';
+
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(Users)
-    private readonly usersRepository: Repository<Users>,
+    @InjectRepository(User)
+    private readonly usersRepository: Repository<User>,
   ) { }
 
   async create(user: CreateUserDTO): Promise<void> {
-    const data = this.usersRepository.create(user);
+    const { userPassword, ...userData } = user;
+    const salt = await bcrypt.genSalt();
+
+    const data = this.usersRepository.create(
+      {
+        userPassword: await bcrypt.hash(userPassword, salt),
+        ...userData
+      }
+    );
     await this.usersRepository.save(data);
   }
 
-  async findByUsername(username: string) {
+  async findByUsername(username: string): Promise<User> {
     const user = await this.usersRepository
       .createQueryBuilder('user')
       .where('user.username = :username', { username: username })
       .getOne();
     if (!user) return null;
     return user;
+  }
+
+  async findAdmin(): Promise<boolean> {
+    const user = await this.usersRepository
+      .createQueryBuilder('user')
+      .where('user.role = :role', { role: 'admin' })
+      .getOne();
+
+    if (user) return true;
+    return false;
   }
 }

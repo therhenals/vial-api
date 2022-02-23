@@ -1,13 +1,17 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Post, SetMetadata, UseGuards } from '@nestjs/common';
+import { ApiBasicAuth, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/utils/guards/auth.guard';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 
 @ApiTags('users')
+@ApiBasicAuth('firebase')
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService) { }
 
+  @UseGuards(AuthGuard)
+  @SetMetadata('roles', ['admin'])
   @Post('create')
   async create(@Body() user: CreateUserDTO): Promise<void> {
     return await this.usersService.create(user);

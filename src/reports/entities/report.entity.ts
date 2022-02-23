@@ -1,12 +1,12 @@
-import { Users } from 'src/users/entities/users.entity';
-import { Signal } from 'src/signal-types/entities/signal-types.entity';
+import { User } from 'src/users/entities/user.entity';
+import { Signal } from 'src/signal-types/entities/signal-type.entity';
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Conservations } from './conservations.entity';
-import { Visibilities } from './visibilities.entity';
+import { Conservation } from './conservation.entity';
+import { Visibility } from './visibility.entity';
 
 
 @Entity('Reports')
-export class Reports {
+export class Report {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,19 +22,19 @@ export class Reports {
   @CreateDateColumn({ name: 'creationDate', type: 'timestamp', nullable: false })
   creationDate: Date;
 
-  @ManyToOne(() => Users)
+  @ManyToOne(() => User)
   @JoinColumn({ name: 'Users_id' })
-  users: Users;
+  users: User;
 
   @OneToOne(() => Signal)
   @JoinColumn({ name: 'SignalTypes_id' })
   signalTypes: Signal;
 
-  @OneToOne(() => Visibilities)
+  @OneToOne(() => Visibility)
   @JoinColumn({ name: ' Visibilities_id' })
-  visibilities: Visibilities;
+  visibility: Visibility;
 
-  @OneToOne(() => Conservations)
+  @OneToOne(() => Conservation)
   @JoinColumn({ name: 'Conservations_id' })
-  conservations: Conservations;
+  conservation: Conservation;
 }

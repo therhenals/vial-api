@@ -1,26 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FirebaseStorageService } from 'src/firebase/storage/storage.service';
-import { Signal } from 'src/signal-types/entities/signal-types.entity';
-import { Users } from 'src/users/entities/users.entity';
+import { Signal } from 'src/signal-types/entities/signal-type.entity';
+import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { ReportClass } from './classes/report.class';
 import { CreateReportDTO } from './dto/create-report.dto';
-import { Conservations } from './entities/conservations.entity';
-import { Reports } from './entities/reports.entity';
-import { Visibilities } from './entities/visibilities.entity';
+import { Conservation } from './entities/conservation.entity';
+import { Report } from './entities/report.entity';
+import { Visibility } from './entities/visibility.entity';
 
 @Injectable()
 export class ReportsService {
   constructor(
-    @InjectRepository(Reports)
-    private readonly reportsRepository: Repository<Reports>,
-    @InjectRepository(Visibilities)
-    private readonly visibilitiesRepository: Repository<Visibilities>,
-    @InjectRepository(Conservations)
-    private readonly conservationsRepository: Repository<Conservations>,
-    @InjectRepository(Users)
-    private readonly usersRepository: Repository<Users>,
+    @InjectRepository(Report)
+    private readonly reportsRepository: Repository<Report>,
+    @InjectRepository(Visibility)
+    private readonly visibilitiesRepository: Repository<Visibility>,
+    @InjectRepository(Conservation)
+    private readonly conservationsRepository: Repository<Conservation>,
+    @InjectRepository(User)
+    private readonly usersRepository: Repository<User>,
     @InjectRepository(Signal)
     private readonly signalRepository: Repository<Signal>,
     private readonly firebaseStorageService: FirebaseStorageService,
@@ -59,8 +59,8 @@ export class ReportsService {
     }
 
     report = this.reportsRepository.create({
-      visibilities: visibility,
-      conservations: conservation,
+      visibility: visibility,
+      conservation: conservation,
       ...report,
     });
 

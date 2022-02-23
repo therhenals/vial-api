@@ -1,14 +1,29 @@
-import { Controller, Get } from '@nestjs/common';
-import { ApiExcludeController } from '@nestjs/swagger';
+import { Body, Controller, Get, Headers, Post } from '@nestjs/common';
+import { ApiBearerAuth, ApiExcludeEndpoint, ApiParam } from '@nestjs/swagger';
 import { AppService } from './app.service';
+import { CreateUserDTO } from './users/dto/create-user.dto';
 
-@ApiExcludeController()
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
+  @ApiExcludeEndpoint()
   @Get()
   getHello(): string {
+    
     return this.appService.getHello();
   }
+
+  
+  @Get('initial')
+  async getInitial(): Promise<boolean> {
+    return await this.appService.getInitial();
+  }
+
+  @Post('initial')
+  async setInitial(@Body() user: CreateUserDTO) {
+    await this.appService.setInitial(user);
+  }
 }
+
+

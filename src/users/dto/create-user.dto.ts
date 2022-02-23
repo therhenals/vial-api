@@ -15,6 +15,4 @@ export class CreateUserDTO {
   userPassword: string;
   @IsString()
   role: string;
-  @IsDate()
-  creationDate: Date;
 }

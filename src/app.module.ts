@@ -8,7 +8,6 @@ import { SignalTypesModule } from './signal-types/signal-types.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FirebaseModule } from './firebase/firebase.module';
 import { ConfigModule } from '@nestjs/config';
-// import { Signal } from './signal-types/entitie/signal-types.entity';
 
 @Module({
   imports: [
@@ -25,7 +24,7 @@ import { ConfigModule } from '@nestjs/config';
       database: process.env.DB_NAME,
       entities: ['dist/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
-      synchronize: false,
+      synchronize: true,
     }),
     // App modules
     AuthModule,

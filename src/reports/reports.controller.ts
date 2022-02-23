@@ -1,7 +1,8 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, SetMetadata } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { FirebaseUserClass } from 'src/firebase/classes/firebase-user.class';
 import { FirebaseUser } from 'src/firebase/user.decorator';
+import { AuthGuard } from 'src/utils/guards/auth.guard';
 import { ReportClass } from './classes/report.class';
 import { CreateReportDTO } from './dto/create-report.dto';
 import { ReportsService } from './reports.service';
@@ -13,8 +14,9 @@ export class ReportsController {
         private reportsService: ReportsService
     ) { }
 
-
+    @UseGuards(AuthGuard)
     @Post('create')
+    @SetMetadata('roles', ['user'])
     async create(
         @FirebaseUser() firebaseUser: FirebaseUserClass,
         @Body() reportDto: CreateReportDTO,
@@ -22,7 +24,8 @@ export class ReportsController {
         await this.reportsService.create(firebaseUser.uid, reportDto);
     }
 
-
+    @UseGuards(AuthGuard)
+    @SetMetadata('roles', ['user'])
     @Get('listAll')
     async listAllByUser(
         @FirebaseUser() user: FirebaseUserClass

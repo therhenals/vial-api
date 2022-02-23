@@ -1,20 +1,20 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Users } from 'src/users/entities/users.entity';
-import { Signal } from 'src/signal-types/entities/signal-types.entity';
-import { Conservations } from './entities/conservations.entity';
-import { Reports } from './entities/reports.entity';
-import { Visibilities } from './entities/visibilities.entity';
+import { User } from 'src/users/entities/user.entity';
+import { Signal } from 'src/signal-types/entities/signal-type.entity';
+import { Conservation } from './entities/conservation.entity';
+import { Report } from './entities/report.entity';
+import { Visibility } from './entities/visibility.entity';
 import { ReportsController } from './reports.controller';
 import { ReportsService } from './reports.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      Visibilities,
-      Conservations,
-      Reports,
-      Users,
+      Visibility,
+      Conservation,
+      Report,
+      User,
       Signal,
     ]),
   ],

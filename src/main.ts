@@ -12,7 +12,11 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .setTitle('Vial API')
     .setVersion(process.env.npm_package_version)
+    .addBearerAuth({
+      type: 'http',
+    }, 'firebase')
     .build();
+
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
   // Validators

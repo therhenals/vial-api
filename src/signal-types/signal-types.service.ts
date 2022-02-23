@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SignalTypeClass } from './classes/signal-type.class';
 import { CreateSignalTypeDTO } from './dto/create-signal-type.dto';
-import { Signal } from './entities/signal-types.entity';
+import { Signal } from './entities/signal-type.entity';
 
 @Injectable()
 export class SignalTypesService {
