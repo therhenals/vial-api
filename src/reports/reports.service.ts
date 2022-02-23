@@ -53,9 +53,9 @@ export class ReportsService {
     let report = {
       lat: reportDto.lat,
       lng: reportDto.lng,
-      users: user,
+      user: user,
       urlPhoto: '',
-      signalTypes: signalType,
+      signalType: signalType,
     }
 
     report = this.reportsRepository.create({
@@ -78,10 +78,13 @@ export class ReportsService {
 
   async listAllByUser(userId: string) {
     const user = await this.usersRepository.findOne(userId);
-
-    return await this.reportsRepository.find({
-      users: user,
-    });
-    // Implement typeorm
+    return await this.reportsRepository
+    .createQueryBuilder('report')
+    .where('report.user = :user', { user: userId })
+    .innerJoinAndSelect('report.user', 'u')
+    .innerJoinAndSelect('report.signalType', 's')
+    .innerJoinAndSelect('report.visibility', 'v')
+    .innerJoinAndSelect('report.conservation', 'c')
+    .getMany()
   }
 }

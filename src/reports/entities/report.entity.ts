@@ -24,11 +24,11 @@ export class Report {
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'Users_id' })
-  users: User;
+  user: User;
 
   @OneToOne(() => Signal)
   @JoinColumn({ name: 'SignalTypes_id' })
-  signalTypes: Signal;
+  signalType: Signal;
 
   @OneToOne(() => Visibility)
   @JoinColumn({ name: ' Visibilities_id' })

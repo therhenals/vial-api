@@ -44,4 +44,18 @@ export class UsersService {
     if (user) return true;
     return false;
   }
+
+  async get() {
+    return await this.usersRepository.query(`
+    SELECT surname,
+    COUNT(*) as total
+    FROM (
+        SELECT u.firtsName, u.surname, r.Users_id
+        FROM Reports r
+        INNER JOIN Users u
+        ON r.Users_id = u.id
+    ) as ReportsWithUsers
+    GROUP BY Users_id
+`);
+  }
 }
