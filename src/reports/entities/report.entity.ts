@@ -4,7 +4,6 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, Prim
 import { Conservation } from './conservation.entity';
 import { Visibility } from './visibility.entity';
 
-
 @Entity('Reports')
 export class Report {
   @PrimaryGeneratedColumn()
@@ -26,7 +25,7 @@ export class Report {
   @JoinColumn({ name: 'Users_id' })
   user: User;
 
-  @OneToOne(() => Signal)
+  @ManyToOne(() => Signal)
   @JoinColumn({ name: 'SignalTypes_id' })
   signalType: Signal;
 

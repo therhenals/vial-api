@@ -16,7 +16,7 @@ export class ReportsController {
 
     @UseGuards(AuthGuard)
     @Post('create')
-    @SetMetadata('roles', ['reporter'])
+    @SetMetadata('roles', ['reporter', 'admin'])
     async create(
         @FirebaseUser() firebaseUser: FirebaseUserClass,
         @Body() reportDto: CreateReportDTO,
@@ -25,11 +25,14 @@ export class ReportsController {
     }
 
     @UseGuards(AuthGuard)
-    @SetMetadata('roles', ['reporter'])
+    @SetMetadata('roles', ['reporter', 'admin'])
     @Get('listAll')
     async listAllByUser(
         @FirebaseUser() user: FirebaseUserClass
     ) /* : Promise<ReportClass[]> */ {
         return await this.reportsService.listAllByUser(user.uid);
     }
+
+    @Get('statistics')
+    getStatistics() {}
 }
