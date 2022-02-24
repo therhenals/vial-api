@@ -87,4 +87,34 @@ export class ReportsService {
       .innerJoinAndSelect('report.conservation', 'c')
       .getMany()
   }
+
+  async statistics() {
+   const reportsByUsers = await this.reportsRepository.query(`
+      SELECT surname,
+      COUNT(*) as total
+      FROM (
+          SELECT u.firtsName, u.surname, r.Users_id
+          FROM Reports r
+          INNER JOIN Users u
+          ON r.Users_id = u.id
+      ) as ReportsWithUsers
+      GROUP BY Users_id
+    `);
+
+    const reportsBySignalTypes = await this.reportsRepository.query(`
+      SELECT *,
+      COUNT(*) as total
+      FROM (
+          SELECT t.name, r.SignalTypes_id
+          FROM Reports r
+          INNER JOIN SignalTypes t
+          ON r.SignalTypes_id = t.id
+      ) as ReportsWithTypes
+      GROUP BY SignalTypes_id
+    `);
+    return {
+      users: reportsByUsers,
+      signalTypes: reportsBySignalTypes,
+    };
+  }
 }
